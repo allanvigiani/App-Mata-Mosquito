@@ -1,4 +1,6 @@
 
+var lives = 1
+
 //Mudança de tamanho de tela
 var height = 0;
 var width = 0;
@@ -14,22 +16,30 @@ screenChange();
 
 
 function randomPosition() {
-//Remover mosquito
+//Remoção automática do mosquito
    if (document.getElementById('gnat')) {
       document.getElementById('gnat').remove();
+
+      if (lives <= 3) {
+         document.getElementById('life' + lives).src = "imagens/coracao_vazio.png"; 
+         
+         lives++;
+      }else {
+         window.location.href = 'game_over.html';
+      }
    }
 
 //Posições randomicas
    var positionX = Math.floor(Math.random() * width) - 90;
    var positionY = Math.floor(Math.random() * height) - 90;
 
-   console.log(positionX, positionY)
+   console.log(positionX, positionY);
 
 //Se cair coordenada 0
    positionX = positionX < 0 ? 0 : positionX;
    positionY = positionY < 0 ? 0 : positionY;
 
-//Criar o elemento HTML
+//Criar o elemento HTML mosquito
    var imgGnat = document.createElement('img');
 
    imgGnat.src = 'imagens/mosquito.png'
@@ -38,6 +48,9 @@ function randomPosition() {
    imgGnat.style.top = positionY + 'px';
    imgGnat.style.position = 'absolute';
    imgGnat.id = 'gnat';
+   imgGnat.onclick = function () {
+      this.remove();
+   }
 
    document.body.appendChild(imgGnat);
 
@@ -54,7 +67,7 @@ function gnatSize() {
       return 'gnat2';
    }else if (size === 2) {
       return 'gnat3';
-   }else () => {
+   }else {
       console.log('ERROR');
    }
 
@@ -71,7 +84,7 @@ function randomSide() {
       return 'sideA';
    }else if (side === 1){
       return 'sideB';
-   }else () => {
+   }else {
       console.log('ERROR');
    }
 
