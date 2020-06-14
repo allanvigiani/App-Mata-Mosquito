@@ -1,6 +1,23 @@
 
 var lives = 1;
-var time = 6;
+var time = 60;
+var gnatTime = 1500;
+
+//Início de jogo
+var level = window.location.search.replace("?", "");
+
+if (level === 'easy') {
+   //1500ms
+   gnatTime = 1500;
+}else if (level === 'normal') {
+   //1000ms
+   gnatTime = 1000;
+}else if (level === 'hard') {
+   ///750ms
+   gnatTime = 750;
+}
+
+
 
 //Mudança de tamanho de tela
 var height = 0;
@@ -111,4 +128,5 @@ var createGnat = setInterval(function () {
 
    randomPosition();
 
-}, 1000);
+}, gnatTime);
+
