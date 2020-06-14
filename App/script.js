@@ -1,5 +1,6 @@
 
-var lives = 1
+var lives = 1;
+var time = 6;
 
 //Mudança de tamanho de tela
 var height = 0;
@@ -14,12 +15,27 @@ function screenChange() {
 
 screenChange();
 
+var timer = setInterval(function () {
+
+   time -= 1;
+
+   //Vitória
+   if (time < 0 ) {
+      clearInterval(timer);
+      clearInterval(createGnat);
+      window.location.href = "win.html"
+   }else {
+      document.getElementById('timer').innerHTML = time;
+   }
+   
+}, 1000);
 
 function randomPosition() {
 //Remoção automática do mosquito
    if (document.getElementById('gnat')) {
       document.getElementById('gnat').remove();
 
+      //Game over
       if (lives <= 3) {
          document.getElementById('life' + lives).src = "imagens/coracao_vazio.png"; 
          
@@ -91,6 +107,8 @@ function randomSide() {
 }
 
 //Timer dos mosquitos
-setInterval(function () {
+var createGnat = setInterval(function () {
+
    randomPosition();
+
 }, 1000);
